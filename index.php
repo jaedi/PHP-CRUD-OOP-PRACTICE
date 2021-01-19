@@ -50,11 +50,12 @@ if(isset($_GET['user']) && $_GET['action'] === "delete" && !empty($_GET['user'])
                 <td> <?php echo $user['username']; ?> </td>
                 <td>
                     <a href="update_users_page.php?user=<?php echo $user['id']; ?>" class="text-green">Update</a>
-                    <a href="index.php?user=<?php echo $user['id']; ?>&action=delete" class="text-red" id="btnDelete" onclick="confirm('Are you sure you want to delete this user?')">Delete</a>
+                    <a href="index.php?user=<?php echo $user['id']; ?>&action=delete" class="text-red" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
                 </td>
             </tr>
         <?php } ?>
         </tbody>
     </table>
+
 </body>
 </html>
