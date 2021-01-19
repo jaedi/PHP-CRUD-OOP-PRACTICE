@@ -5,7 +5,10 @@ include 'users.php';
 
 $users = new Users();
 
-
+// Delete record
+if(isset($_GET['user']) && $_GET['action'] === "delete" && !empty($_GET['user'])) {
+    $users->delete($_GET['user']);
+}
 
 ?>
 
@@ -15,14 +18,17 @@ $users = new Users();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page | PHP Create Read Update Delete Practice - OOP</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>
+    
+    <div class="container">
+    <h1 class="heading">
     All Users
-    <a href="create_users_page.php" style="float:right;">Add User</a>
+    <a href="create_users_page.php" class="add-user-button">Add User</a>
     </h1>
-
-    <table style="width:100%; border: 1px solid black;" border="1">
+    </div>
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
@@ -33,16 +39,21 @@ $users = new Users();
             </tr>
         </thead>
         <tbody>
+        <?php
+            $users = $users->index();
+            foreach ($users as $user) {
+        ?>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align:center;">
-                <a href="update.php?user=" style="color:green;">Update</a>
-                <a href="delete.php?user=" style="color:red;">Delete</a>
+                <td> <?php echo $user['id']; ?> </td>
+                <td> <?php echo $user['name']; ?> </td>
+                <td> <?php echo $user['email']; ?> </td>
+                <td> <?php echo $user['username']; ?> </td>
+                <td>
+                    <a href="update_users_page.php?user=<?php echo $user['id']; ?>" class="text-green">Update</a>
+                    <a href="index.php?user=<?php echo $user['id']; ?>&action=delete" class="text-red" id="btnDelete" onclick="confirm('Are you sure you want to delete this user?')">Delete</a>
                 </td>
             </tr>
+        <?php } ?>
         </tbody>
     </table>
 </body>
