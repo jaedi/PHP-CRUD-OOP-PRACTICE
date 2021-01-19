@@ -2,7 +2,7 @@
 
 This project is for practice purpose only.
 
-### My Goals
+### *My Goals*
 - Improve coding techniques and follow latest and appropriate coding standards.
 - Master Object Oriented Programming.
 - Practice agile development.
@@ -10,7 +10,10 @@ This project is for practice purpose only.
 - Create high quality code.
 - Improve and get used to in using Git/Github workflow.
 
+### *Journal/Diary/Documentation/Comments about this project*
+- While developing this project, I recalled essential things in software development.
+- I normally use a framework in development (Laravel), now I understood Laravel better and how it's structure and architecture work.
 
 
 
-# ‘You don’t learn to walk by following rules. You learn by doing, and by falling over.’ –Richard Branson
+> # ‘You don’t learn to walk by following rules. You learn by doing, and by falling over.’ –Richard Branson
