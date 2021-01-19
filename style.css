@@ -1,0 +1,36 @@
+:root {
+    --primary: #3083DC;
+    --secondary: #E0E0E2;
+    --green: #2A7F62;
+    --red: #F71735;
+}
+
+.container {
+    width: 80%;
+    margin: 25px auto;
+}
+table {
+ width: 80%;
+ border: 2px solid black;
+ margin: 25px auto;
+}
+td {
+    text-align: center;
+    padding: 5px;
+}
+.heading {
+    color: var(--primary);
+}
+.add-user-button {
+    float:right;
+    color: var(--primary);
+    border: 4px solid var(--primary);
+    padding: 1px 5px;
+    text-decoration: none;
+}
+.text-red {
+    color: var(--red);
+}
+.text-green {
+    color: var(--green);
+}
