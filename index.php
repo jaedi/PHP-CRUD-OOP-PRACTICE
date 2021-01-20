@@ -18,17 +18,19 @@ if(isset($_GET['user']) && $_GET['action'] === "delete" && !empty($_GET['user'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page | PHP Create Read Update Delete Practice - OOP</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <div class="container">
-    <h1 class="heading">
-    All Users
-    <a href="create_users_page.php" class="add-user-button">Add User</a>
-    </h1>
+    <div class="heading">
+    <h1>All Users</h1>
+    <a href="create_users_page.php" class="add-user-button"><i class="fas fa-user-plus"></i> Add User</a>
     </div>
-    <table border="1">
+    
+    </div>
+    <table class="custom-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -48,9 +50,9 @@ if(isset($_GET['user']) && $_GET['action'] === "delete" && !empty($_GET['user'])
                 <td> <?php echo $user['name']; ?> </td>
                 <td> <?php echo $user['email']; ?> </td>
                 <td> <?php echo $user['username']; ?> </td>
-                <td>
-                    <a href="update_users_page.php?user=<?php echo $user['id']; ?>" class="text-green">Update</a>
-                    <a href="index.php?user=<?php echo $user['id']; ?>&action=delete" class="text-red" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                <td class="table-action">
+                    <a href="update_users_page.php?user=<?php echo $user['id']; ?>" class="text-green"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="index.php?user=<?php echo $user['id']; ?>&action=delete" class="text-red" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>
         <?php } ?>
