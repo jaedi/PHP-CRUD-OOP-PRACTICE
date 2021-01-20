@@ -18,16 +18,17 @@
         }
 
         public function index() {
-            $query = "SELECT * FROM userstable";
-            $result = $this->con->query($query);
+            //Fetch All Data from Users Table
+            $stmt = $this->con->prepare("SELECT * FROM userstable");
+            $stmt->execute();
+            $result = $stmt->get_result();
             $data = array();
             if($result->num_rows > 0) {
-                
                 while($row = $result->fetch_assoc()){
                     $data[] = $row;
                 }
-            } else {
-                echo "No record found.";
+            }  else {
+                echo "User record not found.";
             }
             return $data;
         }
@@ -39,23 +40,25 @@
             $username = $this->con->real_escape_string($_POST['username']);
             $password = $this->con->real_escape_string(md5($_POST['password']));
 
-            //Query
-            $query = "INSERT INTO userstable(`name`, `email`, `username`, `password`) VALUES ('$name', '$email', '$username', '$password')";
-            $sql = $this->con->query($query);
-            if($sql==true) {
+            //Prepared Statements (Avoid SQL Injection)
+            $stmt = $this->con->prepare("INSERT INTO userstable(`name`, `email`, `username`, `password`) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param('ssss', $name, $email, $username, $password);
+            if($stmt->execute()) {
                 header("Location: index.php?status=create");
-            }else {
+            }  else {
                 echo "Registration failed";
             }
         }
 
         public function getUser($id) {
-            $query = "SELECT * FROM userstable WHERE id='$id'";
-            $result = $this->con->query($query);
-            if($result->num_rows > 0){
+            $stmt = $this->con->prepare("SELECT * FROM userstable WHERE id=?");
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result) {
                 $row = $result->fetch_assoc();
                 return $row;
-            } else {
+            }  else {
                 echo "User record not found.";
             }
         }
@@ -68,21 +71,24 @@
             $id = $this->con->real_escape_string($_POST['id']);
 
             if(!empty($id) && !empty($data)) {
-                $query = "UPDATE userstable SET name = '$name', email = '$email', username = '$username', password = '$password' WHERE id = '$id'";
-                $sql = $this->con->query($query);
-                if($sql==true) {
+
+                //Update Prepared Statements (Avoid SQL Injection)
+                $stmt = $this->con->prepare("UPDATE userstable SET name=?, email=?, username=?, password=? WHERE id=?");
+                $stmt->bind_param('ssssi', $name, $email, $username, $password, $id);
+                if($stmt->execute()) {
                     header("Location: index.php?status=updateSuccess");
-                } else {
+                }  else {
                     echo "Record update failed, please try again.";
                 }
             }
         }
         public function delete($id) {
-            $query = "DELETE FROM userstable WHERE id='$id'";
-            $sql = $this->con->query($query);
-            if($sql==true) {
+            //Delete Prepared Statements (Avoid SQL Injection)
+            $stmt = $this->con->prepare("DELETE FROM userstable WHERE id=?");
+            $stmt->bind_param('i', $id);
+            if($stmt->execute()) {
                 header("Location:index.php?status=deleteSuccess");
-            } else {
+            }  else {
                 echo "Failure in deleting this user, please try again.";
             }
         }
